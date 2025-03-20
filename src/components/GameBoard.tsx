@@ -1,31 +1,14 @@
 import { FC, useEffect, useState } from 'react';
+import { directionOffsets, GRID_SIZE } from '../constants';
+import { Direction } from '../types';
 
-const GRID_SIZE = 10;
-enum Direction {
-  RIGHT = 'right',
-  LEFT = 'left',
-  UP = 'up',
-  DOWN = 'down',
-}
-
-const directionOffsets = {
-  [Direction.RIGHT]: { rowOffset: 0, colOffset: 1 },
-  [Direction.LEFT]: { rowOffset: 0, colOffset: -1 },
-  [Direction.UP]: { rowOffset: -1, colOffset: 0 },
-  [Direction.DOWN]: { rowOffset: 1, colOffset: 0 },
-};
-
-const GameBoard: FC = () => {
+const GameBoard: FC<{ direction: Direction }> = ({ direction }) => {
   const [grid, setGrid] = useState(
     Array.from({ length: GRID_SIZE }, () => Array(GRID_SIZE).fill(null))
   );
   const [snakePoint, setSnakePoint] = useState({ row: 0, col: 0 });
-  const [direction, setDirection] = useState(Direction.RIGHT);
-  const [canMove, setCanMove] = useState(true);
 
   useEffect(() => {
-    if (!canMove) return;
-
     const interval = setInterval(() => {
       setGrid((prevGrid) => {
         const cloneGrid = prevGrid.map((row) => [...row]);
@@ -46,14 +29,13 @@ const GameBoard: FC = () => {
           setSnakePoint({ row: newRow, col: newCol });
           return cloneGrid;
         } else {
-          setCanMove(false);
           return prevGrid;
         }
       });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [snakePoint, direction, canMove]);
+  }, [snakePoint, direction]);
 
   return (
     <div className="relative w-[400px] h-[400px] bg-white border-2 border-green-500 shadow-lg grid grid-cols-10 grid-rows-10">
