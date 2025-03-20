@@ -8,21 +8,34 @@ import { Direction } from '../types';
 
 const GamePage: FC = () => {
   const [direction, setDirection] = useState(Direction.RIGHT);
+  const [key, setKey] = useState(0);
+
+  const restartGame = () => {
+    setKey((prevKey) => prevKey + 1);
+    setDirection(Direction.RIGHT);
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-green-100 text-green-900 relative">
-      <div className="flex flex-col items-center w-full max-w-2xl p-6 bg-white rounded-3xl shadow-lg text-center">
-        <GameBoard direction={direction} />
+    <div className="flex flex-col items-center justify-center h-screen bg-green-50 text-green-900 relative">
+      <div className="flex flex-col items-center w-full max-w-xl p-6 bg-white rounded-3xl shadow-lg text-center">
+        <GameBoard key={key} direction={direction} />
         <Controls setDirection={setDirection} />
 
-        <Link
-          to={routes.home}
-          className="mt-6 inline-block bg-red-400 px-6 py-3 text-lg rounded-full text-white shadow-md hover:bg-red-500 transition"
-        >
-          Выйти в меню
-        </Link>
+        <div className="flex gap-4 mt-6">
+          <Link
+            to={routes.home}
+            className="bg-green-400 px-6 py-3 text-lg rounded-full text-white shadow-md hover:bg-green-500 transition"
+          >
+            Выйти в меню
+          </Link>
+          <button
+            onClick={restartGame}
+            className="bg-green-600 px-6 py-3 text-lg rounded-full text-white shadow-md hover:bg-green-700 transition"
+          >
+            Начать сначала
+          </button>
+        </div>
       </div>
-
       <Footer />
     </div>
   );
