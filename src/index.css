@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+.snake-run {
+  position: absolute;
+  bottom: 0;
+  right: 100%;
+  width: 150px;
+  height: auto;
+  animation: snakeMove 10s linear infinite;
+}
+
+@keyframes snakeMove {
+  from {
+    right: 100%;
+  }
+  to {
+    right: -100px;
+  }
+}
