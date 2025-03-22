@@ -1,3 +1,7 @@
+export type GridCell = 'snake' | 'food' | null;
+export type GridRow = GridCell[]
+export type GridState = GridRow[];
+
 export enum Direction {
   RIGHT = 'right',
   LEFT = 'left',

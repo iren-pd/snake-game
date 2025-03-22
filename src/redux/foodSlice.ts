@@ -8,7 +8,8 @@ export const foodSlice = createSlice({
   initialState,
   reducers: {
     setFoodPoint: (state, action: PayloadAction<FoodPoint>) => {
-      return action.payload;
+      state.row = action.payload.row;
+      state.col = action.payload.col;
     },
   },
 });
