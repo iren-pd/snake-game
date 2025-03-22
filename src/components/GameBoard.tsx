@@ -38,16 +38,16 @@ const GameBoard: FC<{ direction: Direction }> = ({ direction }) => {
   }, [snakePoint, direction]);
 
   return (
-    <div className="relative w-[400px] h-[400px] bg-white border-2 border-green-500 shadow-lg grid grid-cols-10 grid-rows-10">
+    <div className="relative w-[400px] h-[400px] bg-white border-2 border-blue-500 shadow-lg grid grid-cols-10 grid-rows-10">
       {grid.map((row, rowIndex) =>
         row.map((cell, colIndex) => (
           <div
             key={`${rowIndex}-${colIndex}`}
-            className="w-full h-full border border-green-200 flex items-center justify-center"
+            className="w-full h-full border border-blue-200 flex items-center justify-center"
           >
             {cell === 'food' && <span className="text-red-500">🍏</span>}
             {cell === 'snake' && (
-              <span className="bg-green-500 w-full h-full block"></span>
+              <span className="bg-blue-500 w-full h-full block"></span>
             )}
           </div>
         ))
