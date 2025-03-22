@@ -5,21 +5,24 @@ import { Footer } from '../components/Footer';
 import Controls from '../components/Controls';
 import { FC, useState } from 'react';
 import { Direction } from '../types';
+import { setDirection } from '../redux/directionSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/store';
 
 const GamePage: FC = () => {
-  const [direction, setDirection] = useState(Direction.RIGHT);
+  const dispatch = useDispatch<AppDispatch>();
   const [key, setKey] = useState(0);
 
   const restartGame = () => {
     setKey((prevKey) => prevKey + 1);
-    setDirection(Direction.RIGHT);
+    dispatch(setDirection(Direction.RIGHT));
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-blue-50 text-blue-900 relative">
       <div className="flex flex-col items-center w-full max-w-xl p-6 bg-white rounded-3xl shadow-lg text-center">
-        <GameBoard key={key} direction={direction} />
-        <Controls setDirection={setDirection} />
+        <GameBoard key={key} />
+        <Controls />
 
         <div className="flex gap-4 mt-6">
           <Link
