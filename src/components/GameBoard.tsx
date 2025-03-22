@@ -14,10 +14,6 @@ const GameBoard: FC = () => {
   const food = useSelector((state: RootState) => state.food);
   const grid = useSelector((state: RootState) => state.grid);
 
-  // const [grid, setGrid] = useState<('snake' | 'food' | null)[][]>(
-  //   Array.from({ length: GRID_SIZE }, () => Array(GRID_SIZE).fill(null))
-  // );
-
   useEffect(() => {
     const interval = setInterval(() => {
       const { rowOffset, colOffset } = directionOffsets[direction];
@@ -39,15 +35,13 @@ const GameBoard: FC = () => {
         return;
       }
 
-      setGrid((prevGrid) => {
-        const cloneGrid = prevGrid.map((row) => [...row]);
+      const cloneGrid = grid.map((row) => [...row]);
 
-        const tail = snake[snake.length - 1];
-        cloneGrid[tail.row][tail.col] = null;
-        cloneGrid[newHead.row][newHead.col] = 'snake';
+      const tail = snake[snake.length - 1];
+      cloneGrid[tail.row][tail.col] = null;
+      cloneGrid[newHead.row][newHead.col] = 'snake';
 
-        return cloneGrid;
-      });
+      dispatch(setGrid(cloneGrid));
 
       if (isFoodEaten) {
         dispatch(growSnake(newHead));
@@ -61,38 +55,32 @@ const GameBoard: FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      dispatch(
-        setGrid((prevGrid: GridState[][]) => {
-          const cloneGrid = prevGrid.map((row) => [...row]);
+      const cloneGrid = grid.map((row) => [...row]);
 
-          let row;
-          let col;
+      let row;
+      let col;
 
-          do {
-            row = Math.floor(Math.random() * GRID_SIZE);
-            col = Math.floor(Math.random() * GRID_SIZE);
-          } while (cloneGrid[row][col] !== null);
+      do {
+        row = Math.floor(Math.random() * GRID_SIZE);
+        col = Math.floor(Math.random() * GRID_SIZE);
+      } while (cloneGrid[row][col] !== null);
 
-          cloneGrid[row][col] = 'food';
-          dispatch(setFoodPoint({ row, col }));
-          return cloneGrid;
-        })
-      );
+      cloneGrid[row][col] = 'food';
+      dispatch(setFoodPoint({ row, col }));
+      dispatch(setGrid(cloneGrid));
     }, 7000);
 
     return () => {
-      dispatch(
-        setGrid((prev) =>
-          prev.map((row) =>
-            row.map((cell: GridCell) => (cell === 'food' ? null : cell))
-          )
-        )
+      const cloneGrid = grid.map((row) => [...row]);
+      const clearedGrid = cloneGrid.map((row) =>
+        row.map((cell) => (cell === 'food' ? null : cell))
       );
 
+      dispatch(setGrid(clearedGrid));
       dispatch(setFoodPoint({ row: null, col: null }));
       clearInterval(interval);
     };
-  }, []);
+  }, [grid]);
 
   return (
     <div className="relative w-[400px] h-[400px] bg-white border-2 border-blue-500 shadow-lg grid grid-cols-10 grid-rows-10">
