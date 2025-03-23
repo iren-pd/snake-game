@@ -8,6 +8,7 @@ import { Direction } from '../types';
 import { setDirection } from '../redux/directionSlice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../redux/store';
+import { useKeyboardControls } from '../hooks/useKeyboardControls';
 
 const GamePage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,6 +18,8 @@ const GamePage: FC = () => {
     setKey((prevKey) => prevKey + 1);
     dispatch(setDirection(Direction.RIGHT));
   };
+
+  useKeyboardControls();
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-blue-50 text-blue-900 relative">
