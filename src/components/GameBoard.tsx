@@ -1,11 +1,12 @@
 import { FC, useEffect } from 'react';
-import { directionOffsets, GRID_SIZE } from '../constants';
 import { useDispatch, useSelector } from 'react-redux';
-import type { RootState, AppDispatch } from '../redux/store';
-import { moveSnake, growSnake } from '../redux/snakeSlice';
-import { setFoodPoint } from '../redux/foodSlice';
-import { setGrid } from '../redux/gridSlice';
+import { type RootState, type AppDispatch, store } from '../redux/store';
 import { GridCell, GridRow } from '../types';
+import { moveSnakeFn } from '../utils/moveSnake';
+import { generateFood } from '../utils/generateFood';
+import { setGrid } from '../redux/gridSlice';
+import { setFoodPoint } from '../redux/foodSlice';
+import { changeGrid } from '../utils/changeGrid';
 
 const GameBoard: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -16,71 +17,28 @@ const GameBoard: FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const { rowOffset, colOffset } = directionOffsets[direction];
-
-      const head = snake[0];
-      const newHead = {
-        row: head.row + rowOffset,
-        col: head.col + colOffset,
-      };
-
-      const isFoodEaten = food.row === newHead.row && food.col === newHead.col;
-
-      if (
-        newHead.row < 0 ||
-        newHead.row >= GRID_SIZE ||
-        newHead.col < 0 ||
-        newHead.col >= GRID_SIZE
-      ) {
-        return;
-      }
-
-      const cloneGrid = grid.map((row) => [...row]);
-
-      const tail = snake[snake.length - 1];
-      cloneGrid[tail.row][tail.col] = null;
-      cloneGrid[newHead.row][newHead.col] = 'snake';
-
-      dispatch(setGrid(cloneGrid));
-
-      if (isFoodEaten) {
-        dispatch(growSnake(newHead));
-      } else {
-        dispatch(moveSnake(newHead));
-      }
+      moveSnakeFn({ snake, direction, food, dispatch });
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [direction, snake, food]);
+  }, [snake, food, direction]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const cloneGrid = grid.map((row) => [...row]);
+    if (food.row === null || food.col === null) {
+      const latestSnake = [...snake];
 
-      let row;
-      let col;
+      const timeout = setTimeout(() => {
+        generateFood(latestSnake, dispatch);
+      }, 5000);
 
-      do {
-        row = Math.floor(Math.random() * GRID_SIZE);
-        col = Math.floor(Math.random() * GRID_SIZE);
-      } while (cloneGrid[row][col] !== null);
+      return () => clearTimeout(timeout);
+    }
+  }, [food]);
 
-      cloneGrid[row][col] = 'food';
-      dispatch(setFoodPoint({ row, col }));
-      dispatch(setGrid(cloneGrid));
-    }, 7000);
-
-    return () => {
-      const cloneGrid = grid.map((row) => [...row]);
-      const clearedGrid = cloneGrid.map((row) =>
-        row.map((cell) => (cell === 'food' ? null : cell))
-      );
-
-      dispatch(setGrid(clearedGrid));
-      dispatch(setFoodPoint({ row: null, col: null }));
-      clearInterval(interval);
-    };
-  }, [grid]);
+  useEffect(() => {
+    const newGrid = changeGrid(snake, food);
+    dispatch(setGrid(newGrid));
+  }, [snake, food]);
 
   return (
     <div className="relative w-[400px] h-[400px] bg-white border-2 border-blue-500 shadow-lg grid grid-cols-10 grid-rows-10">
