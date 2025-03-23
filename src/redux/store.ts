@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import snakeReducer from './snakeSlice';
-import directionReducer from './directionSlice';
-import foodReducer from './foodSlice';
-import gridReducer from './gridSlice';
+import {
+  snakeReducer,
+  directionReducer,
+  foodReducer,
+  gridReducer,
+  scoreReducer,
+} from './features';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +13,7 @@ export const store = configureStore({
     direction: directionReducer,
     food: foodReducer,
     grid: gridReducer,
+    score: scoreReducer,
   },
 });
 

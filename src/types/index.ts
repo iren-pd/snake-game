@@ -1,5 +1,5 @@
 export type GridCell = 'snake' | 'food' | null;
-export type GridRow = GridCell[]
+export type GridRow = GridCell[];
 export type GridState = GridRow[];
 
 export enum Direction {
@@ -18,3 +18,5 @@ export type FoodPoint = {
   row: number | null;
   col: number | null;
 };
+
+export type Score = number;

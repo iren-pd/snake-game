@@ -1,6 +1,6 @@
 import { GRID_SIZE } from '../constants';
 import { AppDispatch } from '../redux/store';
-import { setFoodPoint } from '../redux/foodSlice';
+import { setFoodPoint } from '../redux/features/foodSlice';
 import { SnakePoint } from '../types';
 
 export const generateFood = (snake: SnakePoint[], dispatch: AppDispatch) => {

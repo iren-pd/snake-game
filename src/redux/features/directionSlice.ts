@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Direction } from '../types';
+import { Direction } from '../../types';
 
 const initialState = { value: Direction.RIGHT };
 

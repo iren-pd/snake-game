@@ -5,7 +5,7 @@ import { Footer } from '../components/Footer';
 import Controls from '../components/Controls';
 import { FC, useState } from 'react';
 import { Direction } from '../types';
-import { setDirection } from '../redux/directionSlice';
+import { setDirection } from '../redux/features/directionSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { type RootState, type AppDispatch } from '../redux/store';
 import { useKeyboardControls } from '../hooks/useKeyboardControls';

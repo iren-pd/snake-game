@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { type RootState, type AppDispatch } from '../redux/store';
 import { useEffect } from 'react';
 import { Direction } from '../types';
-import { setDirection } from '../redux/directionSlice';
+import { setDirection } from '../redux/features/directionSlice';
 import { canChangeDirection } from '../utils/canChangeDirection';
 
 export const useKeyboardControls = () => {

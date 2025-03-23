@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SnakePoint } from '../types';
+import { SnakePoint } from '../../types';
 
 const initialState: SnakePoint[] = [{ row: 0, col: 0 }];
 

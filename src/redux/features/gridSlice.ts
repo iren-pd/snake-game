@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { GRID_SIZE } from '../constants';
-import { GridState } from '../types';
+import { GRID_SIZE } from '../../constants';
+import { GridState } from '../../types';
 
 const initialState: GridState = Array.from({ length: GRID_SIZE }, () =>
   Array(GRID_SIZE).fill(null)

@@ -4,7 +4,7 @@ import { type RootState, type AppDispatch } from '../redux/store';
 import { GridCell, GridRow } from '../types';
 import { moveSnakeFn } from '../utils/moveSnake';
 import { generateFood } from '../utils/generateFood';
-import { setGrid } from '../redux/gridSlice';
+import { setGrid } from '../redux/features/gridSlice';
 import { changeGrid } from '../utils/changeGrid';
 
 const GameBoard: FC = () => {
@@ -13,10 +13,11 @@ const GameBoard: FC = () => {
   const direction = useSelector((state: RootState) => state.direction.value);
   const food = useSelector((state: RootState) => state.food);
   const grid = useSelector((state: RootState) => state.grid);
+  const score = useSelector((state: RootState) => state.score);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      moveSnakeFn({ snake, direction, food, dispatch });
+      moveSnakeFn({ snake, direction, food, score, dispatch });
     }, 1000);
 
     return () => clearInterval(interval);

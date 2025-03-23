@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FoodPoint } from '../types';
+import { FoodPoint } from '../../types';
 
 const initialState: FoodPoint = { row: null, col: null };
 

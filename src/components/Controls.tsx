@@ -3,7 +3,7 @@ import arrowIcon from '../assets/controls.png';
 import { Direction } from '../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { type RootState, type AppDispatch } from '../redux/store';
-import { setDirection } from '../redux/directionSlice';
+import { setDirection } from '../redux/features/directionSlice';
 import { canChangeDirection } from '../utils/canChangeDirection';
 
 const Controls: FC = () => {
