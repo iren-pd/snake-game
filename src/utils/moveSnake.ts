@@ -27,26 +27,27 @@ export const moveSnakeFn = ({
     row: head.row + rowOffset,
     col: head.col + colOffset,
   };
-
-  const isFoodEaten = food.row === newHead.row && food.col === newHead.col;
-
-  if (
+  const isCollisionWithSelf = snake.some(
+    (segment) => segment.row === newHead.row && segment.col === newHead.col
+  );
+  const isOutOfBounds =
     newHead.row < 0 ||
     newHead.row >= GRID_SIZE ||
     newHead.col < 0 ||
-    newHead.col >= GRID_SIZE
-  ) {
-    return;
-  }
+    newHead.col >= GRID_SIZE;
+  const isFoodEaten = food.row === newHead.row && food.col === newHead.col;
+
+  if (isOutOfBounds || isCollisionWithSelf) return;
+
   let newSnake;
 
   if (isFoodEaten) {
     newSnake = [newHead, ...snake];
     const newScore = score + 10;
-    
+
     dispatch(growSnake(newHead));
-    dispatch(setScore(newScore))
-    dispatch(setFoodPoint({ row: null, col: null })); 
+    dispatch(setScore(newScore));
+    dispatch(setFoodPoint({ row: null, col: null }));
   } else {
     newSnake = [newHead, ...snake.slice(0, -1)];
     dispatch(moveSnake(newHead));
