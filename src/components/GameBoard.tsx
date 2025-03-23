@@ -28,7 +28,7 @@ const GameBoard: FC = () => {
 
       const timeout = setTimeout(() => {
         generateFood(latestSnake, dispatch);
-      }, 5000);
+      }, 3000);
 
       return () => clearTimeout(timeout);
     }

@@ -6,12 +6,14 @@ import Controls from '../components/Controls';
 import { FC, useState } from 'react';
 import { Direction } from '../types';
 import { setDirection } from '../redux/directionSlice';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../redux/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { type RootState, type AppDispatch } from '../redux/store';
 import { useKeyboardControls } from '../hooks/useKeyboardControls';
+import GameHeader from '../components/GameHeader';
 
 const GamePage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const snake = useSelector((state: RootState) => state.snake);
   const [key, setKey] = useState(0);
 
   const restartGame = () => {
@@ -23,6 +25,7 @@ const GamePage: FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-blue-50 text-blue-900 relative">
+      <GameHeader score={snake.length - 1} time="00:45" />
       <div className="flex flex-col items-center w-full max-w-xl p-6 bg-white rounded-3xl shadow-lg text-center">
         <GameBoard key={key} />
         <Controls />
