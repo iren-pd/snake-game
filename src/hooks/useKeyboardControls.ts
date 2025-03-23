@@ -3,28 +3,30 @@ import { type RootState, type AppDispatch } from '../redux/store';
 import { useEffect } from 'react';
 import { Direction } from '../types';
 import { setDirection } from '../redux/directionSlice';
+import { canChangeDirection } from '../utils/canChangeDirection';
 
 export const useKeyboardControls = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const snake = useSelector((state: RootState) => state.snake);
   const direction = useSelector((state: RootState) => state.direction.value);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
         case 'ArrowUp':
-          if (direction !== Direction.DOWN)
+          if (canChangeDirection(snake, direction, Direction.UP))
             dispatch(setDirection(Direction.UP));
           break;
         case 'ArrowDown':
-          if (direction !== Direction.UP)
+          if (canChangeDirection(snake, direction, Direction.DOWN))
             dispatch(setDirection(Direction.DOWN));
           break;
         case 'ArrowLeft':
-          if (direction !== Direction.RIGHT)
+          if (canChangeDirection(snake, direction, Direction.LEFT))
             dispatch(setDirection(Direction.LEFT));
           break;
         case 'ArrowRight':
-          if (direction !== Direction.LEFT)
+          if (canChangeDirection(snake, direction, Direction.RIGHT))
             dispatch(setDirection(Direction.RIGHT));
           break;
         default:
