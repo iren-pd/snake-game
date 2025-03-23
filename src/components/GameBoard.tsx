@@ -58,7 +58,13 @@ const GameBoard: FC = () => {
           >
             {cell === 'food' && <span className="text-red-500">🐟</span>}
             {cell === 'snake' && (
-              <span className="bg-blue-500 w-full h-full block"></span>
+              <span
+                className={`w-full h-full block ${
+                  rowIndex === snake[0].row && colIndex === snake[0].col
+                    ? 'bg-blue-500'
+                    : 'bg-blue-400'
+                }`}
+              ></span>
             )}
           </div>
         ))
