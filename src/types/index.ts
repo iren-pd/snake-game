@@ -20,3 +20,9 @@ export type FoodPoint = {
 };
 
 export type Score = number;
+
+export type Time = {
+  hours: number;
+  minutes: number;
+  seconds: number;
+};

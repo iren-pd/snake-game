@@ -5,6 +5,7 @@ import {
   foodReducer,
   gridReducer,
   scoreReducer,
+  timeReducer,
 } from './features';
 
 export const store = configureStore({
@@ -14,6 +15,7 @@ export const store = configureStore({
     food: foodReducer,
     grid: gridReducer,
     score: scoreReducer,
+    time: timeReducer,
   },
 });
 

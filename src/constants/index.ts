@@ -1,6 +1,6 @@
 import { Direction } from "../types";
 
-export const GRID_SIZE = 10;
+export const GRID_SIZE = 3;
 
 export const directionOffsets = {
   [Direction.RIGHT]: { rowOffset: 0, colOffset: 1 },

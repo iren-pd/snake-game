@@ -1,11 +1,12 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { type RootState, type AppDispatch } from '../redux/store';
+import { type RootState, type AppDispatch, store } from '../redux/store';
 import { GridCell, GridRow } from '../types';
 import { moveSnakeFn } from '../utils/moveSnake';
 import { generateFood } from '../utils/generateFood';
 import { setGrid } from '../redux/features/gridSlice';
 import { changeGrid } from '../utils/changeGrid';
+import { tick } from '../redux/features/timeSlice';
 
 const GameBoard: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,6 +18,14 @@ const GameBoard: FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      dispatch(tick());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
       moveSnakeFn({ snake, direction, food, score, dispatch });
     }, 1000);
 
@@ -25,9 +34,8 @@ const GameBoard: FC = () => {
 
   useEffect(() => {
     if (food.row === null || food.col === null) {
-      const latestSnake = [...snake];
-
       const timeout = setTimeout(() => {
+        const latestSnake = store.getState().snake;
         generateFood(latestSnake, dispatch);
       }, 3000);
 
@@ -41,7 +49,7 @@ const GameBoard: FC = () => {
   }, [snake, food]);
 
   return (
-    <div className="relative w-[400px] h-[400px] bg-white border-2 border-blue-500 shadow-lg grid grid-cols-10 grid-rows-10">
+    <div className="relative w-[350px] h-[350px] bg-white border-2 border-blue-500 shadow-lg grid grid-cols-3 grid-rows-3">
       {grid.map((row: GridRow, rowIndex: number) =>
         row.map((cell: GridCell, colIndex: number) => (
           <div
