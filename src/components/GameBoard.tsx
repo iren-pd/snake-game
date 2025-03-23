@@ -1,11 +1,10 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { type RootState, type AppDispatch, store } from '../redux/store';
+import { type RootState, type AppDispatch } from '../redux/store';
 import { GridCell, GridRow } from '../types';
 import { moveSnakeFn } from '../utils/moveSnake';
 import { generateFood } from '../utils/generateFood';
 import { setGrid } from '../redux/gridSlice';
-import { setFoodPoint } from '../redux/foodSlice';
 import { changeGrid } from '../utils/changeGrid';
 
 const GameBoard: FC = () => {
