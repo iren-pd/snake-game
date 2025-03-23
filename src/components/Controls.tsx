@@ -17,7 +17,7 @@ const Controls: FC = () => {
         className="transition flex items-center justify-center"
         onClick={() =>
           canChangeDirection(snake, direction, Direction.UP) &&
-          setDirection(Direction.UP)
+          dispatch(setDirection(Direction.UP))
         }
       >
         <img
