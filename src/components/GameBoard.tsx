@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { type RootState, type AppDispatch, store } from '../redux/store';
-import { GridCell, GridRow } from '../types';
+import { GameStatus, GridCell, GridRow } from '../types';
 import { moveSnakeFn } from '../utils/moveSnake';
 import { generateFood } from '../utils/generateFood';
 import { setGrid } from '../redux/features/gridSlice';
@@ -15,14 +15,15 @@ const GameBoard: FC = () => {
   const food = useSelector((state: RootState) => state.food);
   const grid = useSelector((state: RootState) => state.grid);
   const score = useSelector((state: RootState) => state.score);
+  const gameStatus = useSelector((state: RootState) => state.gameStatus.type);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      dispatch(tick());
+      if (gameStatus === GameStatus.PLAYING) dispatch(tick());
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [gameStatus]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -30,23 +31,27 @@ const GameBoard: FC = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [snake, food, direction]);
+  }, [snake, food, direction, gameStatus]);
 
   useEffect(() => {
     if (food.row === null || food.col === null) {
       const timeout = setTimeout(() => {
-        const latestSnake = store.getState().snake;
-        generateFood(latestSnake, dispatch);
+        if (gameStatus === GameStatus.PLAYING) {
+          const latestSnake = store.getState().snake;
+          generateFood(latestSnake, dispatch);
+        }
       }, 3000);
 
       return () => clearTimeout(timeout);
     }
-  }, [food]);
+  }, [food, gameStatus]);
 
   useEffect(() => {
-    const newGrid = changeGrid(snake, food);
-    dispatch(setGrid(newGrid));
-  }, [snake, food]);
+    if (gameStatus !== GameStatus.PLAYING) {
+      const newGrid = changeGrid(snake, food);
+      dispatch(setGrid(newGrid));
+    }
+  }, [snake, food, gameStatus]);
 
   return (
     <div className="relative w-[350px] h-[350px] bg-white border-2 border-blue-500 shadow-lg grid grid-cols-3 grid-rows-3">
