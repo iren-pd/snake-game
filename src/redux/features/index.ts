@@ -4,3 +4,4 @@ export { default as foodReducer } from './foodSlice';
 export { default as gridReducer } from './gridSlice';
 export { default as scoreReducer } from './scoreSlice';
 export { default as timeReducer } from './timeSlice';
+export { default as gameStatusReducer } from './gameStatusSlice';
