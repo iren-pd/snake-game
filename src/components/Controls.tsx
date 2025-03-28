@@ -11,14 +11,16 @@ const Controls: FC = () => {
   const direction = useSelector((state: RootState) => state.direction.value);
   const snake = useSelector((state: RootState) => state.snake);
 
+  const handleChangeDirection = (direction: keyof typeof Direction) => {
+    canChangeDirection(snake, direction, Direction[direction]) &&
+      dispatch(setDirection(Direction[direction]));
+  };
+
   return (
     <div className="flex flex-col items-center mt-4">
       <button
         className="transition flex items-center justify-center"
-        onClick={() =>
-          canChangeDirection(snake, direction, Direction.UP) &&
-          dispatch(setDirection(Direction.UP))
-        }
+        onClick={() => handleChangeDirection(Direction.UP)}
       >
         <img
           src={arrowIcon}
@@ -30,10 +32,7 @@ const Controls: FC = () => {
       <div className="flex gap-12">
         <button
           className="transition flex items-center justify-center"
-          onClick={() =>
-            canChangeDirection(snake, direction, Direction.LEFT) &&
-            dispatch(setDirection(Direction.LEFT))
-          }
+          onClick={() => handleChangeDirection(Direction.LEFT)}
         >
           <img
             src={arrowIcon}
@@ -43,10 +42,7 @@ const Controls: FC = () => {
         </button>
         <button
           className="transition flex items-center justify-center"
-          onClick={() =>
-            canChangeDirection(snake, direction, Direction.RIGHT) &&
-            dispatch(setDirection(Direction.RIGHT))
-          }
+          onClick={() => handleChangeDirection(Direction.RIGHT)}
         >
           <img src={arrowIcon} alt="Right" className="w-12 h-12" />
         </button>
@@ -54,10 +50,7 @@ const Controls: FC = () => {
 
       <button
         className="transition flex items-center justify-center"
-        onClick={() =>
-          canChangeDirection(snake, direction, Direction.DOWN) &&
-          dispatch(setDirection(Direction.DOWN))
-        }
+        onClick={() => handleChangeDirection(Direction.DOWN)}
       >
         <img
           src={arrowIcon}
