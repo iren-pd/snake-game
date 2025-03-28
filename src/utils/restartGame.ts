@@ -5,7 +5,7 @@ import { setScore } from '../redux/features/scoreSlice';
 import { resetSnake } from '../redux/features/snakeSlice';
 import { resetTime } from '../redux/features/timeSlice';
 import { AppDispatch } from '../redux/store';
-import { Direction, GameStatus } from '../types';
+import { Direction, GameStatus } from '../constants';
 
 export const restartGame = (dispatch: AppDispatch) => {
   dispatch(setGameStatus(GameStatus.PLAYING));

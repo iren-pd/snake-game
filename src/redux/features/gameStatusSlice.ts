@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { GameStatus } from '../../types';
+import { GameStatus } from '../../constants';
 
 const initialState = { type: GameStatus.IDLE };
 

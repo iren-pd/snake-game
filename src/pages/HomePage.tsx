@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import routes from '../routes/routes';
 import { Footer } from '../components/Footer';
-import { GameStatus } from '../types';
 import { setGameStatus } from '../redux/features/gameStatusSlice';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { type AppDispatch } from '../redux/store';
+import { GameStatus } from '../constants';
 
 const HomePage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
