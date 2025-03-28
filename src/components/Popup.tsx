@@ -28,25 +28,25 @@ const GameResultModal: FC = () => {
 
   return (
     <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-3xl p-8 shadow-lg w-full max-w-md text-center">
+      <div className="bg-white rounded-3xl p-4 md:p-8 shadow-lg w-[90%] md:w-full max-w-md text-center">
         <h2 className="text-2xl font-bold text-blue-700 mb-4">{title}</h2>
-        
+
         <p className="text-lg mb-2">
           Счёт: <strong>{score}</strong>
         </p>
         <p className="text-lg mb-6">Время:{formattedTime}</p>
 
-        <div className="flex gap-4 mt-6">
+        <div className="flex justify-around mt-6">
           <Link
             to={routes.home}
             onClick={() => dispatch(setGameStatus(GameStatus.IDLE))}
-            className="bg-blue-400 px-6 py-3 text-lg rounded-full text-white shadow-md hover:bg-blue-500 transition"
+            className="bg-blue-400 px-4 md:px-6 py-3 text-sm md:text-lg rounded-full text-white shadow-md hover:bg-blue-500 transition"
           >
             Выйти в меню
           </Link>
           <button
             onClick={() => restartGame(dispatch)}
-            className="bg-blue-600 px-6 py-3 text-lg rounded-full text-white shadow-md hover:bg-blue-700 transition"
+            className="bg-blue-600 px-4 md:px-6 py-3 text-sm md:text-lg rounded-full text-white shadow-md hover:bg-blue-700 transition"
           >
             Начать сначала
           </button>

@@ -19,43 +19,47 @@ const Controls: FC = () => {
   return (
     <div className="flex flex-col items-center mt-4">
       <button
-        className="transition flex items-center justify-center"
+        className="transition flex items-center justify-center active:bg-blue-200 active:shadow-lg active:rounded-md"
         onClick={() => handleChangeDirection(Direction.UP)}
       >
         <img
           src={arrowIcon}
           alt="Up"
-          className="w-12 h-12 transform rotate-[-90deg]"
+          className="w-10 h-10 md:w-12 md:h-12 transform rotate-[-90deg]"
         />
       </button>
 
-      <div className="flex gap-12">
+      <div className="flex gap-8 md:gap-12">
         <button
-          className="transition flex items-center justify-center"
+          className="transition flex items-center justify-center active:bg-blue-200 active:shadow-lg active:rounded-md"
           onClick={() => handleChangeDirection(Direction.LEFT)}
         >
           <img
             src={arrowIcon}
             alt="Left"
-            className="w-12 h-12 transform rotate-[-180deg]"
+            className="w-10 h-10 md:w-12 md:h-12 transform rotate-[-180deg]"
           />
         </button>
         <button
-          className="transition flex items-center justify-center"
+          className="transition flex items-center justify-center active:bg-blue-200 active:shadow-lg active:rounded-md"
           onClick={() => handleChangeDirection(Direction.RIGHT)}
         >
-          <img src={arrowIcon} alt="Right" className="w-12 h-12" />
+          <img
+            src={arrowIcon}
+            alt="Right"
+            className="w-10 h-10 md:w-12 md:h-12"
+          />
         </button>
       </div>
 
       <button
-        className="transition flex items-center justify-center"
+        className="transition flex items-center justify-center active:bg-blue-200 active:shadow-lg active:rounded-md"
         onClick={() => handleChangeDirection(Direction.DOWN)}
       >
         <img
           src={arrowIcon}
           alt="Down"
-          className="w-12 h-12 transform rotate-[90deg]"
+          className="w-10 h-10 md:w-12 md:h-12 transform rotate-[90deg]"
         />
       </button>
     </div>

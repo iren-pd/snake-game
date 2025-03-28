@@ -62,7 +62,7 @@ const GameBoard: FC = () => {
   }, [snake, food, gameStatus]);
 
   return (
-    <div className="relative w-[350px] h-[350px] bg-white border-2 border-blue-500 shadow-lg grid grid-cols-10 grid-rows-10">
+    <div className="relative w-[280px] h-[280px] md:w-[350px] md:h-[350px] aspect-square bg-white border-2 border-blue-500 shadow-lg grid grid-cols-10 grid-rows-10">
       {grid.map((row: GridRow, rowIndex: number) =>
         row.map((cell: GridCell, colIndex: number) => (
           <div

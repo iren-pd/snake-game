@@ -25,9 +25,9 @@ const GamePage: FC = () => {
 
   return (
     <>
-      <div className="flex flex-col items-center justify-center h-screen bg-blue-50 text-blue-900 relative">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-blue-50 text-blue-900 relative">
         <GameHeader />
-        <div className="flex flex-col items-center w-full max-w-xl p-6 bg-white rounded-3xl shadow-lg text-center">
+        <div className="flex flex-col items-center w-full max-w-xl p-4 bg-white rounded-3xl shadow-lg text-center">
           <GameBoard />
           <Controls />
 
@@ -35,13 +35,13 @@ const GamePage: FC = () => {
             <Link
               to={routes.home}
               onClick={() => dispatch(setGameStatus(GameStatus.IDLE))}
-              className="bg-blue-400 px-6 py-3 text-lg rounded-full text-white shadow-md hover:bg-blue-500 transition"
+              className="bg-blue-400 px-4 md:px-6 py-2 md:py-3 text-md md:text-lg rounded-full text-white shadow-md hover:bg-blue-500 transition"
             >
               Выйти в меню
             </Link>
             <button
               onClick={() => restartGame(dispatch)}
-              className="bg-blue-600 px-6 py-3 text-lg rounded-full text-white shadow-md hover:bg-blue-700 transition"
+              className="bg-blue-600 px-4 md:px-6 py-2 md:py-3 text-md md:text-lg rounded-full text-white shadow-md hover:bg-blue-700 transition"
             >
               Начать сначала
             </button>

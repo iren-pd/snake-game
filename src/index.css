@@ -4,7 +4,6 @@
   position: absolute;
   bottom: 0;
   right: 100%;
-  width: 150px;
   height: auto;
   animation: snakeMove 10s linear infinite;
 }
