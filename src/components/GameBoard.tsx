@@ -31,7 +31,7 @@ const GameBoard: FC = () => {
     const interval = setInterval(() => {
       if (gameStatus === GameStatus.PLAYING)
         moveSnakeFn({ snake, direction, food, score, dispatch });
-    }, 1000);
+    }, 700);
 
     return () => clearInterval(interval);
   }, [snake, food, direction, gameStatus]);
