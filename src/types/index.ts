@@ -1,20 +1,9 @@
+import { Direction } from '../constants';
+import { AppDispatch } from '../redux/store';
+
 export type GridCell = 'snake' | 'food' | null;
 export type GridRow = GridCell[];
 export type GridState = GridRow[];
-
-export enum GameStatus {
-  IDLE = 'idle', 
-  PLAYING = 'playing',
-  WIN = 'win',
-  LOSE = 'lose',
-}
-
-export enum Direction {
-  RIGHT = 'right',
-  LEFT = 'left',
-  UP = 'up',
-  DOWN = 'down',
-}
 
 export type SnakePoint = {
   row: number;
@@ -32,4 +21,12 @@ export type Time = {
   hours: number;
   minutes: number;
   seconds: number;
+};
+
+export type moveSnakeArg = {
+  snake: SnakePoint[];
+  direction: Direction;
+  food: FoodPoint;
+  score: Score;
+  dispatch: AppDispatch;
 };

@@ -4,7 +4,6 @@ import GameBoard from '../components/GameBoard';
 import { Footer } from '../components/Footer';
 import Controls from '../components/Controls';
 import { FC, useEffect } from 'react';
-import { GameStatus } from '../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { type AppDispatch, type RootState } from '../redux/store';
 import { useKeyboardControls } from '../hooks/useKeyboardControls';
@@ -12,6 +11,7 @@ import GameHeader from '../components/GameHeader';
 import { setGameStatus } from '../redux/features/gameStatusSlice';
 import GameResultModal from '../components/Popup';
 import { restartGame } from '../utils/restartGame';
+import { GameStatus } from '../constants';
 
 const GamePage: FC = () => {
   const dispatch = useDispatch<AppDispatch>();

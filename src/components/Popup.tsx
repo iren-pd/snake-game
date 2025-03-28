@@ -1,11 +1,11 @@
 import { FC } from 'react';
-import { GameStatus } from '../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../redux/store';
 import { setGameStatus } from '../redux/features/gameStatusSlice';
 import { Link } from 'react-router-dom';
 import routes from '../routes/routes';
 import { restartGame } from '../utils/restartGame';
+import { GameStatus } from '../constants';
 
 const GameResultModal: FC = () => {
   const dispatch = useDispatch<AppDispatch>();

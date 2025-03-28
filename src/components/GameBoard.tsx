@@ -1,12 +1,14 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { type RootState, type AppDispatch, store } from '../redux/store';
-import { GameStatus, GridCell, GridRow } from '../types';
+import { GridCell, GridRow } from '../types';
 import { moveSnakeFn } from '../utils/moveSnake';
 import { generateFood } from '../utils/generateFood';
 import { setGrid } from '../redux/features/gridSlice';
 import { changeGrid } from '../utils/changeGrid';
 import { tick } from '../redux/features/timeSlice';
+import { GameStatus, GRID_SIZE } from '../constants';
+import { setGameStatus } from '../redux/features/gameStatusSlice';
 
 const GameBoard: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -27,7 +29,8 @@ const GameBoard: FC = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      moveSnakeFn({ snake, direction, food, score, dispatch });
+      if (gameStatus === GameStatus.PLAYING)
+        moveSnakeFn({ snake, direction, food, score, dispatch });
     }, 1000);
 
     return () => clearInterval(interval);
@@ -50,11 +53,16 @@ const GameBoard: FC = () => {
     if (gameStatus === GameStatus.PLAYING) {
       const newGrid = changeGrid(snake, food);
       dispatch(setGrid(newGrid));
+
+      if (snake.length === GRID_SIZE * GRID_SIZE) {
+        dispatch(setGameStatus(GameStatus.WIN));
+        return;
+      }
     }
   }, [snake, food, gameStatus]);
 
   return (
-    <div className="relative w-[350px] h-[350px] bg-white border-2 border-blue-500 shadow-lg grid grid-cols-2 grid-rows-3">
+    <div className="relative w-[350px] h-[350px] bg-white border-2 border-blue-500 shadow-lg grid grid-cols-2 grid-rows-2">
       {grid.map((row: GridRow, rowIndex: number) =>
         row.map((cell: GridCell, colIndex: number) => (
           <div

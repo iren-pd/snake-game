@@ -1,18 +1,10 @@
-import { directionOffsets, GRID_SIZE } from '../constants';
-import { Direction, FoodPoint, GameStatus, Score, SnakePoint } from '../types';
-import { AppDispatch } from '../redux/store';
+import { directionOffsets, GameStatus, GRID_SIZE } from '../constants';
+import { moveSnakeArg } from '../types';
+
 import { growSnake, moveSnake } from '../redux/features/snakeSlice';
 import { setFoodPoint } from '../redux/features/foodSlice';
 import { setScore } from '../redux/features/scoreSlice';
 import { setGameStatus } from '../redux/features/gameStatusSlice';
-
-type moveSnakeArg = {
-  snake: SnakePoint[];
-  direction: Direction;
-  food: FoodPoint;
-  score: Score;
-  dispatch: AppDispatch;
-};
 
 export const moveSnakeFn = ({
   snake,
@@ -52,11 +44,6 @@ export const moveSnakeFn = ({
     dispatch(growSnake(newHead));
     dispatch(setScore(newScore));
     dispatch(setFoodPoint({ row: null, col: null }));
-
-    if (newSnake.length === GRID_SIZE * GRID_SIZE) {
-      dispatch(setGameStatus(GameStatus.WIN));
-      return;
-    }
   } else {
     newSnake = [newHead, ...snake.slice(0, -1)];
     dispatch(moveSnake(newHead));
