@@ -47,14 +47,14 @@ const GameBoard: FC = () => {
   }, [food, gameStatus]);
 
   useEffect(() => {
-    if (gameStatus !== GameStatus.PLAYING) {
+    if (gameStatus === GameStatus.PLAYING) {
       const newGrid = changeGrid(snake, food);
       dispatch(setGrid(newGrid));
     }
   }, [snake, food, gameStatus]);
 
   return (
-    <div className="relative w-[350px] h-[350px] bg-white border-2 border-blue-500 shadow-lg grid grid-cols-3 grid-rows-3">
+    <div className="relative w-[350px] h-[350px] bg-white border-2 border-blue-500 shadow-lg grid grid-cols-2 grid-rows-3">
       {grid.map((row: GridRow, rowIndex: number) =>
         row.map((cell: GridCell, colIndex: number) => (
           <div
