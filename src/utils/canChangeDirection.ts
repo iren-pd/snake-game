@@ -1,4 +1,5 @@
-import { Direction, SnakePoint } from '../types';
+import { Direction } from '../constants';
+import { SnakePoint } from '../types';
 
 export const canChangeDirection = (
   snake: SnakePoint[],
