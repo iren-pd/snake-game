@@ -1,4 +1,4 @@
-export const GRID_SIZE = 2;
+export const GRID_SIZE = 10;
 
 export enum GameStatus {
   IDLE = 'idle',
