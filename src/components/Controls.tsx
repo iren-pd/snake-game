@@ -1,19 +1,19 @@
 import { FC } from 'react';
 import arrowIcon from '../assets/controls.png';
-import { Direction } from '../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { type RootState, type AppDispatch } from '../redux/store';
 import { setDirection } from '../redux/features/directionSlice';
 import { canChangeDirection } from '../utils/canChangeDirection';
+import { Direction } from '../constants';
 
 const Controls: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const direction = useSelector((state: RootState) => state.direction.value);
   const snake = useSelector((state: RootState) => state.snake);
 
-  const handleChangeDirection = (direction: keyof typeof Direction) => {
-    canChangeDirection(snake, direction, Direction[direction]) &&
-      dispatch(setDirection(Direction[direction]));
+  const handleChangeDirection = (nextDirection: Direction) => {
+    canChangeDirection(snake, direction, nextDirection) &&
+      dispatch(setDirection(nextDirection));
   };
 
   return (
